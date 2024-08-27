@@ -1,21 +1,22 @@
 const express = require ('express');
 const bodyParser = require('body-parser');
-const sequelize = require ('./config/db');
+const estadoRoutes = require('./routes/estado')
 const rolRoutes = require('./routes/rol');
-//const estadoRoutes = require ('./routes/estado')
-//import productosRoutes from './routes/productos.js';
-// Importa otras rutas
-const port = 3000;
+const sequelize = require ('./config/db');
+
 const app = express();
+const port = 3000;
+app.use(bodyParser.json());
 
 app.get('/', (req, res)=> {
     res.send("hello word")
 }) 
 
 // Middleware para parsear JSON en el cuerpo de las solicitudes
-app.use(bodyParser.json());
+
 
 // Middleware para manejar rutas
+app.use('/api', estadoRoutes);
 app.use('/api', rolRoutes);
 //app.use('/api', estadoRoutes);
 
