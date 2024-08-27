@@ -1,0 +1,47 @@
+const express = require ('express');
+const bodyParser = require('body-parser');
+const sequelize = require ('./config/db');
+const rolRoutes = require('./routes/rol');
+//const estadoRoutes = require ('./routes/estado')
+//import productosRoutes from './routes/productos.js';
+// Importa otras rutas
+const port = 3000;
+const app = express();
+
+app.get('/', (req, res)=> {
+    res.send("hello word")
+}) 
+
+// Middleware para parsear JSON en el cuerpo de las solicitudes
+app.use(bodyParser.json());
+
+// Middleware para manejar rutas
+app.use('/api', rolRoutes);
+//app.use('/api', estadoRoutes);
+
+//app.use('/api/productos', productosRoutes);
+// Usa otras rutas
+
+app.get('/db-test', (req, res) => {
+    try {
+      sequelize.authenticate();
+      console.log('authenticado')
+     res.send('db-test connection')
+    } catch (error) {
+      console.log('no authenticado')
+      
+    }
+  })
+  
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Algo salió mal!');
+  });
+  
+  app.use((req, res) => {
+    res.status(404).send('Ruta no encontrada');
+  });
+
+app.listen(port, () => {
+console.log(`example app listening on port ${port}`)
+})
