@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const usuarioRoutes = require('./routes/usuario');
 const categoriaProductoRoutes = require('./routes/categoria');
 const estadoRoutes = require('./routes/estado')
+const ordenRoutes = require('./routes/orden');
+const ordenDetalleRoutes = require('./routes/ordenDetalle');
 const productoRoutes = require('./routes/producto');
 const rolRoutes = require('./routes/rol');
 const sequelize = require ('./config/db');
@@ -23,6 +25,8 @@ app.get('/', (req, res)=> {
 app.use('/api', usuarioRoutes);
 app.use('/api', categoriaProductoRoutes);
 app.use('/api', estadoRoutes);
+app.use('/api', ordenRoutes);
+app.use('/api', ordenDetalleRoutes);
 app.use('/api', productoRoutes);
 app.use('/api', rolRoutes);
 //app.use('/api', estadoRoutes);
