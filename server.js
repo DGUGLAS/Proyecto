@@ -1,12 +1,14 @@
 const express = require ('express');
 const bodyParser = require('body-parser');
 const estadoRoutes = require('./routes/estado')
+const productoRoutes = require('./routes/producto');
 const rolRoutes = require('./routes/rol');
 const sequelize = require ('./config/db');
 
 const app = express();
 const port = 3000;
 app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/', (req, res)=> {
     res.send("hello word")
@@ -17,6 +19,7 @@ app.get('/', (req, res)=> {
 
 // Middleware para manejar rutas
 app.use('/api', estadoRoutes);
+app.use('/api', productoRoutes);
 app.use('/api', rolRoutes);
 //app.use('/api', estadoRoutes);
 
