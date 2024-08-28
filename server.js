@@ -1,5 +1,7 @@
 const express = require ('express');
 const bodyParser = require('body-parser');
+const usuarioRoutes = require('./routes/usuario');
+const categoriaProductoRoutes = require('./routes/categoria');
 const estadoRoutes = require('./routes/estado')
 const productoRoutes = require('./routes/producto');
 const rolRoutes = require('./routes/rol');
@@ -18,6 +20,8 @@ app.get('/', (req, res)=> {
 
 
 // Middleware para manejar rutas
+app.use('/api', usuarioRoutes);
+app.use('/api', categoriaProductoRoutes);
 app.use('/api', estadoRoutes);
 app.use('/api', productoRoutes);
 app.use('/api', rolRoutes);
