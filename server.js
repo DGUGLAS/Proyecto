@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require ('express');
 const bodyParser = require('body-parser');
 const usuarioRoutes = require('./routes/usuario');
@@ -7,7 +8,9 @@ const ordenRoutes = require('./routes/orden');
 const ordenDetalleRoutes = require('./routes/ordenDetalle');
 const productoRoutes = require('./routes/producto');
 const rolRoutes = require('./routes/rol');
+const authRoutes  = require('./routes/auth');
 const sequelize = require ('./config/db');
+const authenticateToken = require('./middlewares/auth');
 
 const app = express();
 const port = 3000;
@@ -22,9 +25,10 @@ app.get('/', (req, res)=> {
 
 
 // Middleware para manejar rutas
+app.use('/api/auth', authRoutes)
 app.use('/api', usuarioRoutes);
 app.use('/api', categoriaProductoRoutes);
-app.use('/api', estadoRoutes);
+app.use('/api',authenticateToken, estadoRoutes);
 app.use('/api', ordenRoutes);
 app.use('/api', ordenDetalleRoutes);
 app.use('/api', productoRoutes);
