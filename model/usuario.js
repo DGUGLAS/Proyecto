@@ -25,7 +25,7 @@ const Usuario = sequelize.define('NEG_USUARIO', {
         allowNull: false
     },
     USU_Password: {
-        type: DataTypes.STRING,  // La longitud se incrementa debido al hash
+        type: DataTypes.STRING(200),  // La longitud se incrementa debido al hash
         allowNull: false
     },
     USU_Telefono: {

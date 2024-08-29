@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require ('express');
+const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const usuarioRoutes = require('./routes/usuario');
 const categoriaProductoRoutes = require('./routes/categoria');
@@ -34,6 +35,13 @@ app.use('/api', ordenDetalleRoutes);
 app.use('/api', productoRoutes);
 app.use('/api', rolRoutes);
 //app.use('/api', estadoRoutes);
+
+async function example() {
+  const v = await bcrypt.compare("hola", "$2a$10$Z8EoM40ZCfJ/okPOsIG00eoLqQe1SmEcuUy29u3cQ01xirv2HORia");
+  console.log(v);
+}
+
+example();
 
 //app.use('/api/productos', productosRoutes);
 // Usa otras rutas
