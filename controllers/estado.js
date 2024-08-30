@@ -41,19 +41,3 @@ exports.createEstado = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
-
-  exports.deleteEstado = async (req, res) => {
-    try {
-      const result = await Estado.destroy({
-        where: { EST_Estado: req.params.id }
-      });
-      if (result) {
-        res.status(204).send();
-      } else {
-        res.status(404).json({ message: 'Estado no encontrado' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
-  

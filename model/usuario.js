@@ -62,14 +62,14 @@ const Usuario = sequelize.define('NEG_USUARIO', {
     hooks: {
         beforeCreate: async (usuario) => {
             if (usuario.USU_Password) {
-                const salt = await bcrypt.genSalt(10);
-                usuario.USU_Password = await bcrypt.hash(usuario.USU_Password, salt);
+             
+                usuario.USU_Password = await bcrypt.hash(usuario.USU_Password, 10);
             }
         },
         beforeUpdate: async (usuario) => {
             if (usuario.USU_Password) {
-                const salt = await bcrypt.genSalt(10);
-                usuario.USU_Password = await bcrypt.hash(usuario.USU_Password, salt);
+              
+                usuario.USU_Password = await bcrypt.hash(usuario.USU_Password, 10);
             }
         }
     }

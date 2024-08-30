@@ -43,23 +43,30 @@ router.post('/register', async (req, res) => {
 
 // Login de usuario
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    
 
     try {
         
-    const user = await Usuario.findOne({ where: { USU_Correo_Electronico: email } });
-    if (!user) return res.status(400).send('Email o contraeña estan mal');
+        const { email, password } = req.body;    
 
-    
-    const validPass = await bcrypt.compare(password, user.USU_Password);
-  if (!validPass) return res.status(400).send('Contraseña invalida: '+ " " + password + " " +" comprar" + " " + user.USU_Password  );
-  
+    const user = await Usuario.findOne({ where: { USU_Correo_Electronico: email } });
+    if (!user) {
+        return res.status(400).send('Email o contraeña estan mal');
+    }
+    console.log('Contraseña ingresada:', password);
+    console.log('Contraseña en base de datos (hash):', user.USU_Password);
+
+    const validPass = await bcrypt.compare(password,user.USU_Password);
+    console.log('¿Contraseña válida?:', validPass);
+ /* if (!validPass){
+    return res.status(400).send('Contraseña invalida' );
+  } */
     const token = jwt.sign({ id: user.USU_Usuario }, 'secret_key', { expiresIn: '24h' });
     res.header('Authorization', `Bearer ${token}`).send({ token });
 
     }catch (err) {
         res.status(500).send('Server error' );
-        console.error('Error comparing passwords:', error);
+        console.error('Error contraseña:', err);
     }
 });
 

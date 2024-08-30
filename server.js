@@ -27,21 +27,16 @@ app.get('/', (req, res)=> {
 
 // Middleware para manejar rutas
 app.use('/api/auth', authRoutes)
-app.use('/api', usuarioRoutes);
-app.use('/api', categoriaProductoRoutes);
+app.use('/api',authenticateToken, usuarioRoutes);
+app.use('/api',authenticateToken, categoriaProductoRoutes);
 app.use('/api',authenticateToken, estadoRoutes);
-app.use('/api', ordenRoutes);
-app.use('/api', ordenDetalleRoutes);
-app.use('/api', productoRoutes);
-app.use('/api', rolRoutes);
+app.use('/api',authenticateToken, ordenRoutes);
+app.use('/api',authenticateToken, ordenDetalleRoutes);
+app.use('/api', authenticateToken,productoRoutes);
+app.use('/api', authenticateToken,rolRoutes);
 //app.use('/api', estadoRoutes);
 
-async function example() {
-  const v = await bcrypt.compare("hola", "$2a$10$Z8EoM40ZCfJ/okPOsIG00eoLqQe1SmEcuUy29u3cQ01xirv2HORia");
-  console.log(v);
-}
 
-example();
 
 //app.use('/api/productos', productosRoutes);
 // Usa otras rutas
