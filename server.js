@@ -7,7 +7,10 @@ const ordenRoutes = require('./routes/orden');
 const ordenDetalleRoutes = require('./routes/ordenDetalle');
 const productoRoutes = require('./routes/producto');
 const rolRoutes = require('./routes/rol');
+const authRoutes  = require('./routes/auth');
 const sequelize = require ('./config/db');
+const authenticateToken = require('./middlewares/auth');
+
 
 const app = express();
 const port = 3000;
@@ -22,13 +25,14 @@ app.get('/', (req, res)=> {
 
 
 // Middleware para manejar rutas
-app.use('/api', usuarioRoutes);
-app.use('/api', categoriaProductoRoutes);
-app.use('/api', estadoRoutes);
-app.use('/api', ordenRoutes);
-app.use('/api', ordenDetalleRoutes);
-app.use('/api', productoRoutes);
-app.use('/api', rolRoutes);
+app.use('/api/auth',  authRoutes)
+app.use('/api', authenticateToken,usuarioRoutes);
+app.use('/api',authenticateToken, categoriaProductoRoutes);
+app.use('/api', authenticateToken,estadoRoutes);
+app.use('/api', authenticateToken,ordenRoutes);
+app.use('/api', authenticateToken,ordenDetalleRoutes);
+app.use('/api', authenticateToken,productoRoutes);
+app.use('/api', authenticateToken,rolRoutes);
 //app.use('/api', estadoRoutes);
 
 //app.use('/api/productos', productosRoutes);

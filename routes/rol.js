@@ -1,7 +1,7 @@
-const expresss  = require('express');
+const express  = require('express');
 const rolController = require('../controllers/rol');
 
-const router = expresss.Router();
+const router = express.Router();
 
 router.post('/roles', rolController.createRol);
 router.get('/roles', rolController.getRoles);

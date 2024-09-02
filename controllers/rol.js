@@ -1,4 +1,5 @@
-const { request, response } = require('express');
+
+const sequelize = require('../config/db');
 const Rol = require('../model/rol');
 
 // Crear un nuevo rol
@@ -14,9 +15,9 @@ exports.createRol = async (req, res) => {
   // Obtener todos los roles
   exports.getRoles = async (req, res) => {
     try {
-      const roles = await Rol.findAll();
+  //    const roles = await Rol.findAll();
+  const roles = await sequelize.query(`InsertarRol 'nuevoRol'`)
       res.status(200).json(roles);
-      console.log("entro")
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
